@@ -1,7 +1,7 @@
 {
   "name": "redisp",
   "version": "0.0.1",
-  "description": "A redis connection factory with a simplistic API and built support for pooling.",
+  "description": "A redis connection factory with a simplistic API and built-in support for pooling.",
   "main": "index.js",
   "repository": {
     "type": "git",
