@@ -1,5 +1,7 @@
 # redisp
 
+[![Build Status](https://travis-ci.org/rogermadjos/redisp.svg)](https://travis-ci.org/rogermadjos/redisp)
+
 ## How to install
 
 ```
