@@ -1,6 +1,7 @@
 # redisp
 
 [![Build Status](https://travis-ci.org/rogermadjos/redisp.svg)](https://travis-ci.org/rogermadjos/redisp)
+[![npm version](https://badge.fury.io/js/redisp.svg)](http://badge.fury.io/js/redisp)
 
 ## How to install
 
