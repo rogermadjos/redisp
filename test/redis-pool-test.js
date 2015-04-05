@@ -3,7 +3,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var RedisPool = require('../index');
+var RedisPool = require('../index').RedisPool;
 var async  = require('async');
 var _ = require('lodash');
 

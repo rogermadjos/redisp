@@ -101,4 +101,8 @@ RedisPool.prototype.create = function(callback) {
   client.auth(this.password);
 };
 
-module.exports = RedisPool;
+module.exports = function(opts) {
+  return new RedisPool(opts);
+};
+
+module.exports.RedisPool = RedisPool;
