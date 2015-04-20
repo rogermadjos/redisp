@@ -120,7 +120,7 @@ describe('Redis Pool', function() {
 
   describe('stress', function() {
     it('should', function(done) {
-      this.timeout(10000);
+      this.timeout(60000);
       var pool = new RedisPool();
       async.timesSeries(250, function(index, callback) {
         setTimeout(function() {

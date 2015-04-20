@@ -5,6 +5,7 @@ var redis = require('redis');
 var _ = require('lodash');
 var debug = require('debug');
 var async = require('async');
+var colors = require('colors/safe');
 
 var loggers = {
   connection: debug('redisp:connection'),
@@ -40,7 +41,7 @@ function RedisPool(options) {
         conn.release = null;
         setTimeout(function() {
           self.queue.unshift(req);
-        }, 225 + Math.random()*50);
+        }, 125 + Math.random()*50);
         callback();
       }
     }
@@ -70,7 +71,7 @@ function RedisPool(options) {
     else {
       setTimeout(function() {
         self.queue.unshift(req);
-      }, 225 + Math.random()*50);
+      }, 125 + Math.random()*50);
       callback();
     }
   },1);
@@ -85,7 +86,7 @@ RedisPool.prototype.create = function(callback) {
   var client = redis.createClient(this.port, this.host, this.options);
   var onConnect = function() {
     client.on('error', function(err) {
-      loggers.connection(err);
+      loggers.connection(colors.red(err.stack));
       client.end();
     });
     loggers.connection('created: %d', client.connection_id);
@@ -93,7 +94,7 @@ RedisPool.prototype.create = function(callback) {
   };
   client.once('ready', onConnect);
   client.once('error', function(err) {
-    loggers.connection(err);
+    loggers.connection(colors.red(err.stack));
     client.end();
     client.removeListener('connect', onConnect);
     callback(err);
