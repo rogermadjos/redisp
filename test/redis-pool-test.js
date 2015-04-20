@@ -14,8 +14,16 @@ describe('Redis Pool', function() {
       var pool = new RedisPool();
       pool.create(function(err, conn) {
         if(err) return done(err);
-        expect(conn.connected).to.be.ok;
-        done();
+        expect(conn.connected).to.be.ok;//jshint ignore:line
+        var num = Math.random();
+        conn.set('test', num, function(err) {
+          if(err) return done(err);
+          conn.get('test', function(err, result) {
+            if(err) return done(err);
+            expect(+result).to.be.equal(num);
+            done();
+          });
+        });
       });
     });
 
@@ -24,8 +32,8 @@ describe('Redis Pool', function() {
         port: 6378
       });
       pool.create(function(err, conn) {
-        expect(conn).to.be.undefined;
-        expect(err).to.be.ok;
+        expect(conn).to.be.undefined;//jshint ignore:line
+        expect(err).to.be.ok;//jshint ignore:line
         done();
       });
     });
@@ -36,9 +44,17 @@ describe('Redis Pool', function() {
       var pool = new RedisPool();
       pool.borrow(function(err, conn) {
         if(err) return done(err);
-        expect(conn.connected).to.be.ok;
+        expect(conn.connected).to.be.ok;//jshint ignore:line
         expect(pool.inUseConnections.length).to.be.equal(1);
-        done();
+        var num = Math.random();
+        conn.set('test', num, function(err) {
+          if(err) return done(err);
+          conn.get('test', function(err, result) {
+            if(err) return done(err);
+            expect(+result).to.be.equal(num);
+            done();
+          });
+        });
       });
     });
 
@@ -47,8 +63,8 @@ describe('Redis Pool', function() {
         port: 6378
       });
       pool.borrow(function(err, conn) {
-        expect(conn).to.be.undefined;
-        expect(err).to.be.ok;
+        expect(conn).to.be.undefined;//jshint ignore:line
+        expect(err).to.be.ok;//jshint ignore:line
         expect(pool.inUseConnections.length).to.be.equal(0);
         done();
       });
@@ -60,7 +76,7 @@ describe('Redis Pool', function() {
       var pool = new RedisPool();
       pool.borrow(function(err, conn) {
         if(err) return done(err);
-        expect(conn.connected).to.be.ok;
+        expect(conn.connected).to.be.ok;//jshint ignore:line
         expect(pool.availableConnections.length).to.be.equal(0);
         expect(pool.inUseConnections.length).to.be.equal(1);
         conn.release();
